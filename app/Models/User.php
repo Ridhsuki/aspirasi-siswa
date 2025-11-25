@@ -37,7 +37,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-/**
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
@@ -48,5 +48,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function aspirations()
+    {
+        return $this->hasMany(Aspiration::class);
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 }

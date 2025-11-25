@@ -27,7 +27,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            'login_id' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
     }
@@ -41,11 +41,11 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        $login_id = $this->input('login_id');
+        $input = $this->input('login_id');
 
-        $field = filter_var($login_id, FILTER_VALIDATE_EMAIL) ? 'email' : 'nisn';
+        $field = filter_var($input, FILTER_VALIDATE_EMAIL) ? 'email' : 'nisn';
 
-        if (!Auth::attempt([$field => $login_id, 'password' => $this->input('password')], $this->boolean('remember'))) {
+        if (!Auth::attempt([$field => $input, 'password' => $this->input('password')], $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([

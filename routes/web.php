@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -7,13 +8,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    if (auth()->user()->role === 'admin') {
-        return view('admin.dashboard');
-    }
+Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
 
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+
+    Route::delete('/users/{id}', [AdminController::class, 'destroyUser'])
+        ->name('users.destroy');
+
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

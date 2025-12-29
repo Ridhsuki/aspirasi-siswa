@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AspirationAdminController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AspirationController;
 use App\Http\Controllers\ProfileController;
@@ -13,6 +14,13 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::resource('users', UserController::class);
+
+    Route::controller(AspirationAdminController::class)->group(function () {
+        Route::get('/aspirations', 'index')->name('aspirations.index');
+        Route::patch('/aspirations/{id}/status', 'updateStatus')->name('aspirations.update-status');
+        Route::get('/aspirations/{id}', 'show')->name('aspirations.show');
+        Route::delete('/aspirations/{id}', 'destroy')->name('aspirations.destroy');
+    });
 });
 
 Route::middleware('auth')->group(function () {

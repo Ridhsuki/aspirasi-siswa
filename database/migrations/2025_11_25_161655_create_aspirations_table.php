@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('content');
-            $table->enum('status', ['pending', 'rejected', 'processed', 'done'])->default('pending');
+            $table->enum('status', ['pending', 'closed', 'resolved'])->default('pending');
             $table->boolean('is_anonymous')->default(true);
             $table->timestamps();
         });

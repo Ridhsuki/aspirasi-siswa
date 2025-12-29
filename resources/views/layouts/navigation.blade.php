@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
                         {{ __('Manajemen Siswa') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.aspirations.index')" :active="request()->routeIs('admin.aspirations.*')">
+                        {{ __('Data Aspirasi') }}
+                    </x-nav-link>
                 </div>
             </div>
 

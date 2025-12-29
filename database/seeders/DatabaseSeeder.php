@@ -42,5 +42,9 @@ class DatabaseSeeder extends Seeder
             'walikelas' => 'Ibu Mega Kusuma, S.Pd',
             'password' => Hash::make('password'),
         ]);
+        User::factory(10)->create();
+        $this->call([
+            AspirationSeeder::class,
+        ]);
     }
 }

@@ -111,7 +111,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 15px;
+            margin: 15px 7px;
             font-size: 13px;
             color: #555;
             cursor: pointer;
@@ -565,7 +565,7 @@
 
                             <div class="comment">
                                 <div class="comment-header">
-                                    z @if (!$showReplyName)
+                                    @if (!$showReplyName)
                                         <div class="comment-avatar" style="background: #9ca3af;">?</div>
                                     @else
                                         <div class="comment-avatar"

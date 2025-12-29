@@ -83,7 +83,7 @@
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .form-group textarea {
@@ -104,6 +104,24 @@
             border-color: #334EAC;
             box-shadow: 0 0 0 3px rgba(51, 78, 172, 0.1);
             transform: translateY(-2px);
+        }
+
+        /* Style Checkbox Anonim */
+        .anon-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #555;
+            cursor: pointer;
+        }
+
+        .anon-option input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: #334EAC;
         }
 
         .tweet-actions {
@@ -166,7 +184,6 @@
         .avatar {
             width: 50px;
             height: 50px;
-            background: linear-gradient(45deg, #334EAC, #F7CE3E, #BAD6EB, #081F5C);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -195,6 +212,14 @@
             font-size: 12px;
             padding: 2px 8px;
             border-radius: 10px;
+            margin-left: 5px;
+        }
+
+        .badge-anon-owner {
+            font-size: 12px;
+            color: #666;
+            font-style: italic;
+            font-weight: normal;
             margin-left: 5px;
         }
 
@@ -258,10 +283,14 @@
             padding-top: 20px;
         }
 
+        .reply-form-container {
+            margin-bottom: 15px;
+        }
+
         .reply-input-wrapper {
             display: flex;
             gap: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
         }
 
         .reply-input-wrapper input {
@@ -341,7 +370,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
-            margin-top: 10px;
+            margin-top: 11px;
         }
 
         .user-bar span {
@@ -431,8 +460,6 @@
             Hanya pembuat pesan & admin yang dapat menghapus postingan tersebut. Harap bijak dalam berkomentar.
         </div>
 
-        {{-- Flash message lama dihapus, diganti dengan script Toastify di bawah --}}
-
         <div class="post-form">
             <h2 style="margin-bottom: 15px; color: #334EAC;">✍️ Tulis Aspirasi</h2>
             <form action="{{ route('aspirations.store') }}" method="POST">
@@ -446,6 +473,11 @@
                     @enderror
                 </div>
 
+                <label class="anon-option">
+                    <input type="checkbox" name="is_anonymous" checked>
+                    <span>Kirim sebagai <strong>Anonim</strong> (Sembunyikan nama saya)</span>
+                </label>
+
                 <div class="tweet-actions">
                     <span class="char-count" id="charCount">0/500</span>
                     <button type="submit" class="btn">📝 Kirim</button>
@@ -455,22 +487,43 @@
 
         <div class="posts-container">
             @forelse($aspirations as $aspiration)
+                @php
+                    $isAspirationOwner = Auth::id() === $aspiration->user_id;
+                    $showAspirationName = !$aspiration->is_anonymous || $isAspirationOwner;
+                @endphp
+
                 <div class="post" x-data="{ openReply: false }">
                     <div class="post-header">
-                        <div class="avatar">
-                            {{ substr($aspiration->user->name, 0, 1) }}
-                        </div>
+                        @if (!$showAspirationName)
+                            <div class="avatar" style="background: #9ca3af;">?</div>
+                        @else
+                            <div class="avatar"
+                                style="background: linear-gradient(45deg, #334EAC, #F7CE3E, #BAD6EB, #081F5C);">
+                                {{ substr($aspiration->user->name, 0, 1) }}
+                            </div>
+                        @endif
+
                         <div class="post-info">
                             <h3>
-                                {{ $aspiration->user->name }}
-                                @if ($aspiration->role === 'admin')
+                                @if ($aspiration->is_anonymous)
+                                    @if ($isAspirationOwner)
+                                        {{ $aspiration->user->name }} <span class="badge-anon-owner">(Diposting sbg
+                                            Anonim)</span>
+                                    @else
+                                        Seseorang (Anonim)
+                                    @endif
+                                @else
+                                    {{ $aspiration->user->name }}
+                                @endif
+
+                                @if (!$aspiration->is_anonymous && $aspiration->role === 'admin')
                                     <span class="badge-admin">Admin</span>
                                 @endif
                             </h3>
                             <div class="timestamp">{{ $aspiration->created_at->diffForHumans() }}</div>
                         </div>
 
-                        @if (Auth::id() === $aspiration->user_id)
+                        @if ($isAspirationOwner)
                             <form action="{{ route('aspirations.destroy', $aspiration->id) }}" method="POST"
                                 onsubmit="return confirm('Hapus aspirasi ini?')">
                                 @csrf
@@ -489,28 +542,57 @@
                     </div>
 
                     <div class="reply-section" x-show="openReply" style="display: none;">
-                        <form action="{{ route('aspirations.reply.store', $aspiration->id) }}" method="POST">
-                            @csrf
-                            <div class="reply-input-wrapper">
-                                <input type="text" name="content" placeholder="Tulis balasan..." required
-                                    autocomplete="off">
-                                <button type="submit" class="btn-small">Kirim</button>
-                            </div>
-                        </form>
+                        <div class="reply-form-container">
+                            <form action="{{ route('aspirations.reply.store', $aspiration->id) }}" method="POST">
+                                @csrf
+                                <div class="reply-input-wrapper">
+                                    <input type="text" name="content" placeholder="Tulis balasan..." required
+                                        autocomplete="off">
+                                    <button type="submit" class="btn-small">Kirim</button>
+                                </div>
+                                <label class="anon-option">
+                                    <input type="checkbox" name="is_anonymous">
+                                    <span>Balas sbg Anonim</span>
+                                </label>
+                            </form>
+                        </div>
 
                         @foreach ($aspiration->replies as $reply)
+                            @php
+                                $isReplyOwner = Auth::id() === $reply->user_id;
+                                $showReplyName = !$reply->is_anonymous || $isReplyOwner;
+                            @endphp
+
                             <div class="comment">
                                 <div class="comment-header">
-                                    <div class="comment-avatar">
-                                        {{ substr($reply->user->name, 0, 1) }}
-                                    </div>
+                                    z @if (!$showReplyName)
+                                        <div class="comment-avatar" style="background: #9ca3af;">?</div>
+                                    @else
+                                        <div class="comment-avatar"
+                                            style="background: linear-gradient(45deg, #F7CE3E, #334EAC, #BAD6EB);">
+                                            {{ substr($reply->user->name, 0, 1) }}
+                                        </div>
+                                    @endif
+
                                     <div style="flex: 1;">
-                                        <h4 style="font-size: 14px; margin:0;">{{ $reply->user->name }}</h4>
+                                        <h4 style="font-size: 14px; margin:0;">
+                                            @if ($reply->is_anonymous)
+                                                @if ($isReplyOwner)
+                                                    {{ $reply->user->name }} <span
+                                                        class="badge-anon-owner">(Anonim)</span>
+                                                @else
+                                                    Seseorang (Anonim)
+                                                @endif
+                                            @else
+                                                {{ $reply->user->name }}
+                                            @endif
+                                        </h4>
                                         <div style="font-size: 11px; color: #888;">
-                                            {{ $reply->created_at->diffForHumans() }}</div>
+                                            {{ $reply->created_at->diffForHumans() }}
+                                        </div>
                                     </div>
 
-                                    @if (Auth::id() === $reply->user_id)
+                                    @if ($isReplyOwner)
                                         <form action="{{ route('replies.destroy', $reply->id) }}" method="POST"
                                             onsubmit="return confirm('Hapus komentar ini?')">
                                             @csrf
@@ -549,25 +631,23 @@
             }
         }
 
-        // Logic Toast Notification menggunakan Toastify.js
         document.addEventListener('DOMContentLoaded', function() {
 
-            // Cek Session Success dari Controller
             @if (session('success'))
                 Toastify({
                     text: "{{ session('success') }}",
                     duration: 4000,
                     close: true,
-                    gravity: "top", // `top` or `bottom`
-                    position: "right", // `left`, `center` or `right`
+                    gravity: "top",
+                    position: "right",
                     stopOnFocus: true,
                     style: {
-                        background: "linear-gradient(to right, #28a745, #20c997)", // Gradient Hijau
+                        background: "linear-gradient(to right, #28a745, #20c997)",
                         borderRadius: "10px",
                         boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)",
                         fontWeight: "bold"
                     },
-                    onClick: function() {} // Callback after click
+                    onClick: function() {}
                 }).showToast();
             @endif
 
@@ -581,7 +661,7 @@
                         gravity: "top",
                         position: "right",
                         style: {
-                            background: "linear-gradient(to right, #dc3545, #fd7e14)", // Gradient Merah
+                            background: "linear-gradient(to right, #dc3545, #fd7e14)",
                             borderRadius: "10px",
                             boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)",
                             fontWeight: "bold"
@@ -592,4 +672,5 @@
         });
     </script>
 </body>
+
 </html>

@@ -28,6 +28,7 @@ class AspirationController extends Controller
             'user_id' => Auth::id(),
             'content' => $request->input('content'),
             'status' => 'pending',
+            'is_anonymous' => $request->has('is_anonymous'),
         ]);
 
         return back()->with('success', 'Aspirasi berhasil dikirim!');
@@ -43,6 +44,7 @@ class AspirationController extends Controller
             'user_id' => Auth::id(),
             'aspiration_id' => $aspiration_id,
             'content' => $request->input('content'),
+            'is_anonymous' => $request->has('is_anonymous'),
         ]);
 
         return back()->with('success', 'Balasan berhasil dikirim!');

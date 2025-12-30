@@ -11,7 +11,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::resource('users', UserController::class);
 
@@ -24,7 +24,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/aspirations', [AspirationController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/aspirations', [AspirationController::class, 'index'])->name('aspirations.index');
     Route::post('/aspirations', [AspirationController::class, 'store'])->name('aspirations.store');
     Route::delete('/aspirations/{id}', [AspirationController::class, 'destroy'])->name('aspirations.destroy');
 

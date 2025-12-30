@@ -434,6 +434,11 @@
                 transform: translateY(0);
             }
         }
+
+        ::selection {
+            background-color: #a4c0ea;
+            color: #fff
+        }
     </style>
 </head>
 

@@ -15,7 +15,7 @@ class AspirationController extends Controller
             ->latest()
             ->get();
 
-        return view('dashboard', compact('aspirations'));
+        return view('main', compact('aspirations'));
     }
 
     public function store(Request $request)

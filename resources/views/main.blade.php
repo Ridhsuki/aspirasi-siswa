@@ -609,7 +609,7 @@
                 </div>
             @empty
                 <div class="empty-state">
-                    <h3>🌟 Belum ada aspirasi</h3>
+                    <h3>🌟 Belum ada tweet</h3>
                     <p>Jadilah yang pertama berbagi pemikiran!</p>
                 </div>
             @endforelse

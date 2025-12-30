@@ -24,7 +24,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [AspirationController::class, 'index'])->name('dashboard');
+    Route::get('/aspirations', [AspirationController::class, 'index'])->name('dashboard');
     Route::post('/aspirations', [AspirationController::class, 'store'])->name('aspirations.store');
     Route::delete('/aspirations/{id}', [AspirationController::class, 'destroy'])->name('aspirations.destroy');
 

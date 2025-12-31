@@ -4,6 +4,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Fahlisaputra\Minify\Middleware\MinifyHtml;
+use Fahlisaputra\Minify\Middleware\MinifyCss;
+use Fahlisaputra\Minify\Middleware\MinifyJavascript;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\EnsureUserRole;
 
@@ -16,6 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->web(append: [
             MinifyHtml::class,
+            MinifyCss::class,
+            MinifyJavascript::class,
         ]);
 
         $middleware->alias([

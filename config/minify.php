@@ -76,7 +76,7 @@ return [
     |
     */
 
-    'assets_storage' => env('MINIFY_ASSETS_STORAGE', 'resources'),
+    'assets_storage' => env('MINIFY_ASSETS_STORAGE', 'public'),
 
     /*
     |--------------------------------------------------------------------------

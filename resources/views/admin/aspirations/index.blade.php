@@ -63,12 +63,13 @@
                                     </td>
 
                                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
-                                        <p class="text-gray-700 whitespace-pre-line">
+                                        <span class="text-gray-700 whitespace-pre-line inline">
                                             {{ Str::limit($aspiration->content, 150) }}
-                                        </p>
+                                        </span>
                                         @if (strlen($aspiration->content) > 150)
                                             <a href="{{ route('admin.aspirations.show', $aspiration->id) }}"
-                                                class="text-blue-500 text-xs hover:underline mt-1">Lihat Selengkapnya
+                                                class="text-blue-500 text-xs hover:underline inline">
+                                                Lihat Selengkapnya
                                             </a>
                                         @endif
                                     </td>
@@ -79,20 +80,15 @@
                                                 class="inline-flex items-center px-3 py-1 text-sm font-medium text-yellow-700 bg-yellow-100 rounded-full">
                                                 Pending
                                             </span>
-                                        @elseif ($aspiration->status === 'processed')
+                                        @elseif ($aspiration->status === 'resolved')
                                             <span
                                                 class="inline-flex items-center px-3 py-1 text-sm font-medium text-blue-700 bg-blue-100 rounded-full">
-                                                Processed
+                                                Resolved
                                             </span>
                                         @elseif ($aspiration->status === 'closed')
                                             <span
-                                                class="inline-flex items-center px-3 py-1 text-sm font-medium text-red-700 bg-red-100 rounded-full">
+                                                class="inline-flex items-center px-3 py-1 text-sm font-medium text-gray-700 bg-gray-100 rounded-full">
                                                 Closed
-                                            </span>
-                                        @elseif ($aspiration->status === 'resolved')
-                                            <span
-                                                class="inline-flex items-center px-3 py-1 text-sm font-medium text-green-700 bg-green-100 rounded-full">
-                                                Resolved
                                             </span>
                                         @endif
                                     </td>

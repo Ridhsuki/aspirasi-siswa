@@ -23,45 +23,57 @@
                     </div>
                 @endif
 
-                <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
-                    <table class="min-w-full table-auto">
-                        <thead>
-                            <tr class="bg-gray-100 text-gray-600 font-semibold text-left">
-                                <th class="px-4 py-2 text-sm sm:text-base">Nama</th>
-                                <th class="px-4 py-2 text-sm sm:text-base">NISN</th>
-                                <th class="px-4 py-2 text-sm sm:text-base">Kelas</th>
-                                <th class="px-4 py-2 text-sm sm:text-base">Email</th>
-                                <th class="px-4 py-2 text-sm sm:text-base">Role</th>
-                                <th class="px-4 py-2 text-sm sm:text-base">Aksi</th>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full border-collapse block md:table">
+                        <thead class="block md:table-header-group">
+                            <tr
+                                class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto md:relative">
+                                <th
+                                    class="bg-gray-100 p-2 text-gray-600 font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                                    Nama</th>
+                                <th
+                                    class="bg-gray-100 p-2 text-gray-600 font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                                    NISN</th>
+                                <th
+                                    class="bg-gray-100 p-2 text-gray-600 font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                                    Kelas</th>
+                                <th
+                                    class="bg-gray-100 p-2 text-gray-600 font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                                    Email</th>
+                                <th
+                                    class="bg-gray-100 p-2 text-gray-600 font-bold md:border md:border-grey-500 text-left block md:table-cell">
+                                    Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="block md:table-row-group">
                             @foreach ($users as $user)
-                                <tr class="border-b border-gray-200 hover:bg-gray-50 transition duration-200">
-                                    <td class="px-4 py-3 text-gray-800">{{ $user->name ?? '-'}}</td>
-                                    <td class="px-4 py-3 text-gray-800">{{ $user->nisn ?? '-'}}</td>
-                                    <td class="px-4 py-3 text-gray-800">{{ $user->kelas ?? '-'}}</td>
-                                    <td class="px-4 py-3 text-gray-800">{{ $user->email ?? '-'}}</td>
-
-                                    <td class="px-4 py-3">
+                                <tr
+                                    class="bg-white border border-grey-500 md:border-none block md:table-row hover:bg-gray-50">
+                                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                                        {{ $user->name ?? '-' }}
                                         @if ($user->role === 'admin')
                                             <span
-                                                class="inline-flex items-center px-3 py-1 text-xs sm:text-sm font-medium text-blue-700 bg-blue-100 rounded-full">
+                                                class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium text-blue-700 bg-blue-100 rounded-full">
                                                 Admin
                                             </span>
                                         @else
                                             <span
-                                                class="inline-flex items-center px-3 py-1 text-xs sm:text-sm font-medium text-green-700 bg-green-100 rounded-full">
+                                                class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium text-green-700 bg-green-100 rounded-full">
                                                 Siswa
                                             </span>
                                         @endif
                                     </td>
-
-                                    <td class="px-4 py-3">
+                                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                                        {{ $user->nisn ?? '-' }}</td>
+                                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                                        {{ $user->kelas ?? '-' }}</td>
+                                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                                        {{ $user->email ?? '-' }}</td>
+                                    <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                                         <div class="flex items-center gap-3">
                                             <a href="{{ route('admin.users.edit', $user->id) }}"
-                                                class="text-blue-600 hover:text-blue-800 font-medium text-xs sm:text-sm">
-                                                <i class="fas fa-edit"></i> Edit
+                                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-sm"
+                                                title="edit user"> Edit
                                             </a>
 
                                             <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
@@ -70,8 +82,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
-                                                    class="text-red-600 hover:text-red-900 font-medium text-xs sm:text-sm">
-                                                    <i class="fas fa-trash-alt"></i> Hapus
+                                                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-sm" title="hapus user">Hapus
                                                 </button>
                                             </form>
                                         </div>

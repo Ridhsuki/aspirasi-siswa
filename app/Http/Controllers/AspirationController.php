@@ -15,7 +15,15 @@ class AspirationController extends Controller
             ->latest()
             ->get();
 
-        return view('main', compact('aspirations'));
+        return view('aspirations.index', compact('aspirations'));
+    }
+
+    public function show($id)
+    {
+        $aspiration = Aspiration::with(['user', 'replies.user'])
+            ->findOrFail($id);
+
+        return view('aspirations.show', compact('aspiration'));
     }
 
     public function store(Request $request)
@@ -55,7 +63,7 @@ class AspirationController extends Controller
         $aspiration = Aspiration::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
         $aspiration->delete();
 
-        return back()->with('success', 'Aspirasi berhasil dihapus.');
+        return redirect()->route('aspirations.index')->with('success', 'Aspirasi berhasil dihapus.');
     }
 
     public function destroyReply($id)
@@ -64,5 +72,14 @@ class AspirationController extends Controller
         $reply->delete();
 
         return back()->with('success', 'Balasan berhasil dihapus.');
+    }
+
+    public function activity()
+    {
+        $user = Auth::user();
+        $aspirations = $user->aspirations()->latest()->get();
+        $replies = $user->replies()->with('aspiration')->latest()->get();
+
+        return view('admin.aspirations.activity', compact('aspirations', 'replies'));
     }
 }

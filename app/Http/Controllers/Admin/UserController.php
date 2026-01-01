@@ -45,6 +45,24 @@ class UserController extends Controller
         return redirect()->route('admin.users.index')->with('success', 'Data siswa berhasil ditambahkan.');
     }
 
+    public function show(User $user)
+    {
+        $user->load([
+            'aspirations' => function ($query) {
+                $query->latest();
+            },
+            'replies.aspiration' => function ($query) {
+                $query->latest();
+            }
+        ]);
+
+        $stats = [
+            'latest_activity' => $user->aspirations->first()?->created_at ?? $user->replies->first()?->created_at ?? $user->created_at,
+        ];
+
+        return view('admin.users.show', compact('user', 'stats'));
+    }
+
     public function edit(User $user)
     {
         return view('admin.users.edit', compact('user'));

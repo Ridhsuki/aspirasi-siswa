@@ -5,14 +5,46 @@
             <h1>OSIS SMA NEGERI 3 KEPULAUAN ARU</h1>
             <p>Ayo! Berbagi Kritik, Saran dan Masukan demi Kemajuan bersama dengan OSIS SMA NEGERI 3 KEPULAUAN ARU</p>
 
-            <div class="user-bar">
-                <span>Halo, <strong>{{ Auth::user()->name }}</strong> 👋</span>
-                <form method="POST" action="{{ route('logout') }}" style="display: inline;">
-                    @csrf
-                    <button type="submit" class="logout-btn" onclick="return confirm('Yakin ingin keluar?')">
-                        Log Out
-                    </button>
-                </form>
+            <div class="modern-user-bar">
+                <div class="profile-info">
+                    <div class="user-avatar">
+                        {{ substr(Auth::user()->name, 0, 1) }}
+                    </div>
+                    <div class="user-text">
+                        <span class="greeting">Halo, Selamat Datang 👋</span>
+                        <span class="username">{{ Auth::user()->name }}</span>
+                    </div>
+                </div>
+
+                <div class="user-actions">
+                    <a href="{{ Auth::user()->role === 'admin' ? route('admin.dashboard') : route('dashboard') }}"
+                        class="btn-dashboard">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                        Dashboard
+                    </a>
+
+                    <form method="POST" action="{{ route('logout') }}" class="logout-form">
+                        @csrf
+                        <button type="submit" class="btn-logout" onclick="return confirm('Yakin ingin keluar?')"
+                            title="Keluar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                            <span class="logout-text">Log Out</span>
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
 

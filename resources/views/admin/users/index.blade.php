@@ -70,22 +70,10 @@
                                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                                         {{ $user->email ?? '-' }}</td>
                                     <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
-                                        <div class="flex items-center gap-3">
-                                            <a href="{{ route('admin.users.edit', $user->id) }}"
-                                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-sm"
-                                                title="edit user"> Edit
-                                            </a>
-
-                                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
-                                                class="inline-block"
-                                                onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-sm" title="hapus user">Hapus
-                                                </button>
-                                            </form>
-                                        </div>
+                                        <a href="{{ route('admin.users.show', $user->id) }}"
+                                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-sm">
+                                            Lihat
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

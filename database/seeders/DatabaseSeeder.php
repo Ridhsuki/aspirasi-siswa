@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
             'password' => Hash::make('password'),
             'nisn' => '081248465639',
-            'kelas' => null,
+            'kelas' => 'ADMIN',
             'walikelas' => null,
         ]);
 

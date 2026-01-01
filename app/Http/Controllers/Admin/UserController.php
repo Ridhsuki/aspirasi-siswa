@@ -10,10 +10,44 @@ use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::where('role', 'user')->latest()->paginate(10);
-        return view('admin.users.index', compact('users'));
+        $query = User::where('role', 'user');
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('nisn', 'like', "%{$search}%")
+                    ->orWhere('kelas', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('kelas') && $request->kelas !== 'all') {
+            $query->where('kelas', $request->kelas);
+        }
+
+        $sort = $request->input('sort', 'latest');
+        if ($sort === 'name_asc') {
+            $query->orderBy('name', 'asc');
+        } elseif ($sort === 'name_desc') {
+            $query->orderBy('name', 'desc');
+        } elseif ($sort === 'oldest') {
+            $query->oldest();
+        } else {
+            $query->latest();
+        }
+
+        $users = $query->paginate(10)->withQueryString();
+
+        $availableClasses = User::where('role', 'user')
+            ->select('kelas')
+            ->distinct()
+            ->orderBy('kelas')
+            ->pluck('kelas');
+
+        return view('admin.users.index', compact('users', 'availableClasses'));
     }
 
     public function create()
@@ -26,7 +60,7 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
-            'nisn' => ['required', 'string', 'max:20', 'unique:' . User::class],
+            'nisn' => ['required', 'numeric', 'unique:' . User::class],
             'kelas' => ['required', 'string', 'max:50'],
             'walikelas' => ['nullable', 'string', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
@@ -73,7 +107,7 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $user->id],
-            'nisn' => ['required', 'string', 'max:20', 'unique:users,nisn,' . $user->id],
+            'nisn' => ['required', 'numeric', 'unique:users,nisn,' . $user->id],
             'kelas' => ['required', 'string', 'max:50'],
             'walikelas' => ['nullable', 'string', 'max:255'],
         ]);

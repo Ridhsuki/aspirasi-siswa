@@ -22,30 +22,25 @@
                                     <tr>
                                         <th class="py-2 px-4 border-b text-left text-sm font-semibold text-gray-600">
                                             Tanggal</th>
-                                        <th class="py-2 px-4 border-b text-left text-sm font-semibold text-gray-600">
-                                            Isi</th>
+                                        <th class="py-2 px-4 border-b text-left text-sm font-semibold text-gray-600">Isi
+                                        </th>
                                         <th class="py-2 px-4 border-b text-left text-sm font-semibold text-gray-600">
                                             Aksi</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach ($aspirations as $aspiration)
-                                        <tr class="hover:bg-gray-50">
-                                            <td class="py-3 px-4 border-b text-sm text-gray-700">
-                                                {{ $aspiration->created_at->format('d M Y, H:i') }}
-                                            </td>
-                                            <td class="py-3 px-4 border-b text-sm text-gray-700">
-                                                <span
-                                                    class="font-semibold block truncate w-64">{{ $aspiration->content ?? '-' }}</span>
-                                            </td>
-                                            <td class="py-3 px-4 border-b text-sm text-gray-700">
-                                                #
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                <tbody id="aspContainer">
+                                    @include('admin.aspirations.partials.activity_aspirations')
                                 </tbody>
                             </table>
                         </div>
+
+                        @if ($aspirations->hasMorePages())
+                            <div class="mt-4 text-center">
+                                <button id="loadMoreAsp" class="text-blue-600 hover:underline text-sm">
+                                    Muat lebih banyak aspirasi &darr;
+                                </button>
+                            </div>
+                        @endif
                     @endif
                 </div>
             </div>
@@ -57,46 +52,66 @@
                     @if ($replies->isEmpty())
                         <p class="text-gray-500 italic">Anda belum pernah membalas aspirasi apapun.</p>
                     @else
-                        <ul class="divide-y divide-gray-200">
-                            @foreach ($replies as $reply)
-                                <li class="py-4">
-                                    <div class="flex space-x-3">
-                                        <div class="flex-1 space-y-1">
-                                            <div class="flex items-center justify-between">
-                                                <h3 class="text-sm font-medium">
-                                                    Mengomentari:
-                                                    <a href="#" style="">
-                                                        <span class="text-blue-600">
-                                                            {{ $reply->aspiration->title ?? 'Aspirasi #' . $reply->aspiration_id }}
-                                                        </span>
-                                                    </a>
-                                                </h3>
-                                                <p class="text-sm text-gray-500">
-                                                    {{ $reply->created_at->diffForHumans() }}</p>
-                                            </div>
-                                            <p class="text-sm text-gray-700 bg-gray-50 p-3 rounded-md">
-                                                "{{ $reply->content }}"
-                                            </p>
-
-                                            <div class="mt-2 text-right">
-                                                <form action="{{ route('replies.destroy', $reply->id) }}" method="POST"
-                                                    class="inline" onsubmit="return confirm('Hapus komentar ini?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                        class="text-xs text-red-500 hover:text-red-700">Hapus
-                                                        Komentar</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            @endforeach
+                        <ul class="divide-y divide-gray-200" id="replyContainer">
+                            @include('admin.aspirations.partials.activity_replies')
                         </ul>
+
+                        @if ($replies->hasMorePages())
+                            <div class="mt-4 text-center">
+                                <button id="loadMoreReply" class="text-blue-600 hover:underline text-sm">
+                                    Muat lebih banyak komentar &darr;
+                                </button>
+                            </div>
+                        @endif
                     @endif
                 </div>
             </div>
 
         </div>
     </div>
+    @push('scripts')
+        <script>
+            let aspPage = 1;
+            const btnAsp = document.getElementById('loadMoreAsp');
+            if (btnAsp) {
+                btnAsp.addEventListener('click', function() {
+                    aspPage++;
+                    fetch(`?asp_page=${aspPage}`, {
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest'
+                            }
+                        })
+                        .then(res => res.text())
+                        .then(html => {
+                            if (!html.trim()) {
+                                btnAsp.style.display = 'none';
+                                return;
+                            }
+                            document.getElementById('aspContainer').insertAdjacentHTML('beforeend', html);
+                        });
+                });
+            }
+
+            let replyPage = 1;
+            const btnReply = document.getElementById('loadMoreReply');
+            if (btnReply) {
+                btnReply.addEventListener('click', function() {
+                    replyPage++;
+                    fetch(`?reply_page=${replyPage}`, {
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest'
+                            }
+                        })
+                        .then(res => res.text())
+                        .then(html => {
+                            if (!html.trim()) {
+                                btnReply.style.display = 'none';
+                                return;
+                            }
+                            document.getElementById('replyContainer').insertAdjacentHTML('beforeend', html);
+                        });
+                });
+            }
+        </script>
+    @endpush
 </x-app-layout>

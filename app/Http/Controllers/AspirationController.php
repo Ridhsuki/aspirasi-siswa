@@ -9,11 +9,15 @@ use Illuminate\Support\Facades\Auth;
 
 class AspirationController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $aspirations = Aspiration::with(['user', 'replies.user'])
             ->latest()
-            ->get();
+            ->paginate(10);
+
+        if ($request->ajax()) {
+            return view('aspirations.partials.list', compact('aspirations'))->render();
+        }
 
         return view('aspirations.index', compact('aspirations'));
     }
@@ -74,11 +78,22 @@ class AspirationController extends Controller
         return back()->with('success', 'Balasan berhasil dihapus.');
     }
 
-    public function activity()
+    public function activity(Request $request)
     {
         $user = Auth::user();
-        $aspirations = $user->aspirations()->latest()->get();
-        $replies = $user->replies()->with('aspiration')->latest()->get();
+
+        if ($request->ajax() && $request->has('asp_page')) {
+            $aspirations = $user->aspirations()->latest()->paginate(5, ['*'], 'asp_page');
+            return view('admin.aspirations.partials.activity_aspirations', compact('aspirations'))->render();
+        }
+
+        if ($request->ajax() && $request->has('reply_page')) {
+            $replies = $user->replies()->with('aspiration')->latest()->paginate(5, ['*'], 'reply_page');
+            return view('admin.aspirations.partials.activity_replies', compact('replies'))->render();
+        }
+
+        $aspirations = $user->aspirations()->latest()->paginate(5, ['*'], 'asp_page');
+        $replies = $user->replies()->with('aspiration')->latest()->paginate(5, ['*'], 'reply_page');
 
         return view('admin.aspirations.activity', compact('aspirations', 'replies'));
     }

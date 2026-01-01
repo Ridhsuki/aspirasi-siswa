@@ -6,6 +6,7 @@ use App\Models\Aspiration;
 use App\Models\Reply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Rules\NoBadWords;
 
 class AspirationController extends Controller
 {
@@ -33,7 +34,7 @@ class AspirationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'content' => 'required|string|max:500',
+            'content' => ['required', 'string', 'max:500', new NoBadWords],
         ]);
 
         Aspiration::create([
@@ -49,7 +50,7 @@ class AspirationController extends Controller
     public function storeReply(Request $request, $aspiration_id)
     {
         $request->validate([
-            'content' => 'required|string|max:500',
+            'content' => ['required', 'string', 'max:500', new NoBadWords],
         ]);
 
         Reply::create([

@@ -24,6 +24,8 @@
                                             Tanggal</th>
                                         <th class="py-2 px-4 border-b text-left text-sm font-semibold text-gray-600">
                                             Isi</th>
+                                        <th class="py-2 px-4 border-b text-left text-sm font-semibold text-gray-600">
+                                            Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -35,6 +37,9 @@
                                             <td class="py-3 px-4 border-b text-sm text-gray-700">
                                                 <span
                                                     class="font-semibold block truncate w-64">{{ $aspiration->content ?? '-' }}</span>
+                                            </td>
+                                            <td class="py-3 px-4 border-b text-sm text-gray-700">
+                                                #
                                             </td>
                                         </tr>
                                     @endforeach
@@ -60,9 +65,11 @@
                                             <div class="flex items-center justify-between">
                                                 <h3 class="text-sm font-medium">
                                                     Mengomentari:
-                                                    <span class="text-blue-600">
-                                                        {{ $reply->aspiration->title ?? 'Aspirasi #' . $reply->aspiration_id }}
-                                                    </span>
+                                                    <a href="#" style="">
+                                                        <span class="text-blue-600">
+                                                            {{ $reply->aspiration->title ?? 'Aspirasi #' . $reply->aspiration_id }}
+                                                        </span>
+                                                    </a>
                                                 </h3>
                                                 <p class="text-sm text-gray-500">
                                                     {{ $reply->created_at->diffForHumans() }}</p>

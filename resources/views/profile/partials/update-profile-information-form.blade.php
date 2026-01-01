@@ -24,6 +24,28 @@
         </div>
 
         <div>
+            <x-input-label for="nisn" :value="$user->role === 'admin' ? 'Nomor WA' : 'NISN'" />
+
+            <x-text-input
+                id="nisn"
+                name="nisn"
+                type="text"
+                class="mt-1 block w-full {{ $user->role !== 'admin' ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : '' }}"
+                :value="old('nisn', $user->nisn)"
+                required
+                autofocus
+                autocomplete="nisn"
+                :disabled="$user->role !== 'admin'"
+            />
+
+            <x-input-error class="mt-2" :messages="$errors->get('nisn')" />
+
+            @if($user->role !== 'admin')
+                <input type="hidden" name="nisn" value="{{ $user->nisn }}">
+            @endif
+        </div>
+
+        <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />

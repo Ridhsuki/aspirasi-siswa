@@ -28,6 +28,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $request->session()->flash('show_welcome_modal', true);
+
         if ($request->user()->role === 'admin') {
             return redirect()->intended(route('admin.dashboard', absolute: false));
         }

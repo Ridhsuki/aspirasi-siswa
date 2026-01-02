@@ -1,24 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap');
+
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
 html {
     width: 100%;
-    height: 100%
+    height: 100%;
 }
 
 body {
-    background: linear-gradient(135deg, #eff3f4 0%, #dce6eb 100%);
+    background: linear-gradient(135deg, #eef2ff 0%, #ffffff 100%);
     position: relative;
     width: 100%;
     height: 100%;
     font-size: 16px;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Figtree', sans-serif;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
-    color: #333
+    color: #1f2937;
 }
 
 form {
@@ -32,23 +34,23 @@ form {
     background-color: #FFF;
     margin: 0;
     padding: 2.5em;
-    box-shadow: 0 20px 40px rgb(0 0 0 / .08);
-    border: none;
-    border-radius: 16px;
-    font-family: 'Source Sans Pro', sans-serif
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.1);
+    border: 1px solid #e5e7eb;
+    border-radius: 24px;
+    font-family: 'Figtree', sans-serif;
 }
 
 form .svgContainer {
     position: relative;
-    width: 160px;
-    height: 160px;
+    width: 140px;
+    height: 140px;
     margin: 0 auto 2em;
     border-radius: 50%;
-    background: #f8fbfc;
-    border: 3px solid #4eb8dd;
+    background: #eef2ff;
+    border: 3px solid #6366f1;
     overflow: hidden;
     pointer-events: none;
-    box-shadow: inset 0 0 15px rgb(0 0 0 / .05)
+    box-shadow: inset 0 0 15px rgb(99 102 241 / .1);
 }
 
 form .svgContainer div {
@@ -56,7 +58,7 @@ form .svgContainer div {
     width: 100%;
     height: 0;
     overflow: hidden;
-    padding-bottom: 100%
+    padding-bottom: 100%;
 }
 
 form .svgContainer .mySVG {
@@ -65,27 +67,29 @@ form .svgContainer .mySVG {
     top: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none
+    pointer-events: none;
 }
 
 form .inputGroup {
     margin: 0 0 1.25em;
     padding: 0;
-    position: relative
+    position: relative;
 }
 
 form .inputGroup:last-of-type {
-    margin-bottom: 0
+    margin-bottom: 0;
 }
 
 form label {
     display: block;
     margin: 0 0 8px 4px;
-    font-size: .95em;
-    color: #3A5E77;
+    font-size: .9em;
+    color: #4b5563;
     font-weight: 700;
     font-family: inherit;
-    letter-spacing: .3px
+    letter-spacing: .3px;
+    text-transform: uppercase;
+    font-size: 0.75rem;
 }
 
 form input[type='email'],
@@ -95,83 +99,83 @@ form input[type='password'] {
     width: 100%;
     height: 55px;
     padding: 0 1.2em;
-    background-color: #f4f8fa;
-    border: 2px solid #fff0;
+    background-color: #f9fafb;
+    border: 2px solid #e5e7eb;
     border-radius: 12px;
-    font-size: 1.15em;
-    color: #333;
+    font-size: 1em;
+    color: #111827;
     font-weight: 600;
     font-family: inherit;
-    transition: all .3s ease
+    transition: all .3s ease;
 }
 
 form input::placeholder {
-    color: #aab8c2;
+    color: #9ca3af;
     font-weight: 500;
-    opacity: 1
+    opacity: 1;
 }
 
 form input:focus {
     outline: none;
     background-color: #fff;
-    border-color: #4eb8dd;
-    box-shadow: 0 4px 15px rgb(78 184 221 / .15)
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgb(99 102 241 / .15);
 }
 
 form button {
     display: block;
     margin: 2em 0 0;
     padding: 0 1em;
-    background: linear-gradient(135deg, #4eb8dd 0%, #217093 100%);
+    background: linear-gradient(135deg, #4f46e5 0%, #2563eb 100%);
     border: none;
     border-radius: 12px;
     width: 100%;
     height: 55px;
-    font-size: 1.2em;
+    font-size: 1.1em;
     color: #FFF;
     font-weight: 700;
     font-family: inherit;
     cursor: pointer;
     transition: transform .2s ease, box-shadow .2s ease;
-    box-shadow: 0 4px 6px rgb(33 112 147 / .2)
+    box-shadow: 0 10px 15px -3px rgb(79 70 229 / .3);
 }
 
 form button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 7px 14px rgb(33 112 147 / .25)
+    box-shadow: 0 20px 25px -5px rgb(79 70 229 / .4);
 }
 
 form button:active {
-    transform: translateY(0)
+    transform: translateY(0);
 }
 
 .app-title {
     text-align: center;
-    color: #217093;
+    color: #1f2937;
     margin-bottom: 1.2em;
     font-weight: 800;
     font-size: 1.6em;
-    border-bottom: 2px dashed #e1e8ed;
+    border-bottom: 2px dashed #e5e7eb;
     padding-bottom: 15px;
-    letter-spacing: -.5px
+    letter-spacing: -.5px;
 }
 
 .forgot-link-container {
     text-align: right;
     margin-top: 12px;
-    margin-bottom: 5px
+    margin-bottom: 5px;
 }
 
 .forgot-link {
-    color: #8daab9;
+    color: #6b7280;
     text-decoration: none;
-    font-size: .9rem;
+    font-size: .85rem;
     font-weight: 600;
-    transition: color 0.2s
+    transition: color 0.2s;
 }
 
 .forgot-link:hover {
-    color: #217093
+    color: #4f46e5;
 }
 
 ::selection {
@@ -183,17 +187,17 @@ form button:active {
     form {
         width: 90%;
         padding: 1.5em;
-        box-shadow: 0 10px 25px rgb(0 0 0 / .05)
+        box-shadow: 0 10px 25px rgb(0 0 0 / .05);
     }
 
     form .svgContainer {
-        width: 140px;
-        height: 140px;
-        margin-bottom: 1.5em
+        width: 120px;
+        height: 120px;
+        margin-bottom: 1.5em;
     }
 
     .app-title {
-        font-size: 1.4em
+        font-size: 1.4em;
     }
 
     form input[type='email'],
@@ -201,6 +205,6 @@ form button:active {
     form input[type='password'],
     form button {
         height: 50px;
-        font-size: 1.1em
+        font-size: 1em;
     }
 }

@@ -12,7 +12,7 @@
                     </div>
                     <div class="user-text">
                         <span class="greeting">Halo, Selamat Datang 👋</span>
-                        <span class="username">{{ Auth::user()->name }}</span>
+                        <span class="username" style="margin-top: 3px">{{ Auth::user()->name }}</span>
                     </div>
                 </div>
 

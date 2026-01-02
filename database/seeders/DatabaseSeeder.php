@@ -19,30 +19,60 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
             'password' => Hash::make('password'),
             'nisn' => '081248465639',
-            'kelas' => 'ADMIN',
+            'kelas' => 'admin',
             'walikelas' => null,
         ]);
 
         User::create([
-            'name' => 'Student A',
-            'email' => null,
-            'nisn' => '0051234567',
-            'role' => 'user',
-            'kelas' => 'XII IPA 1',
-            'walikelas' => 'Bapak Joko Widodo, S.Pd',
+            'name' => 'Ridhsuki Dev',
+            'email' => 'dev@ridhsuki.my.id',
+            'role' => 'admin',
             'password' => Hash::make('password'),
+            'nisn' => null,
+            'kelas' => 'admin',
+            'walikelas' => null,
         ]);
 
-        User::create([
-            'name' => 'Student B',
-            'email' => 'siti@gmail.com',
-            'nisn' => '0051234568',
-            'role' => 'user',
-            'kelas' => 'XI IPS 2',
-            'walikelas' => 'Ibu Mega Kusuma, S.Pd',
-            'password' => Hash::make('password'),
-        ]);
-        User::factory(10)->create();
+        $dataSiswa = [
+            '0051234567' => [
+                'nama' => 'Willz',
+                'kelas' => 'XI',
+                'walikelas' => 'bu agus kenyang bu, S.Pd'
+            ],
+            '0051234568' => [
+                'nama' => 'Siti Aisyah Ramadhani',
+                'kelas' => 'XI IPS 2',
+                'walikelas' => 'Bapak Joko Widodo, S.Pd'
+            ],
+            '0051234569' => [
+                'nama' => 'Budi Santoso',
+                'kelas' => 'X MIPA 3',
+                'walikelas' => 'Ibu Mega Kusuma, S.Pd'
+            ],
+            '0051234570' => [
+                'nama' => 'Dewi Lestari',
+                'kelas' => 'XII IPS 1',
+                'walikelas' => 'Bapak Ahmad Yani, S.Pd'
+            ],
+            '0051234571' => [
+                'nama' => 'Fajar Ramadhan',
+                'kelas' => 'XI IPA 2',
+                'walikelas' => 'Ibu Rina Kartika, S.Pd'
+            ]
+        ];
+
+        foreach ($dataSiswa as $nisn => $data) {
+            User::create([
+                'name' => $data['nama'],
+                'email' => null,
+                'role' => 'user',
+                'password' => Hash::make('password'),
+                'nisn' => $nisn,
+                'kelas' => $data['kelas'],
+                'walikelas' => $data['walikelas'],
+            ]);
+        }
+
         $this->call([
             AspirationSeeder::class,
         ]);

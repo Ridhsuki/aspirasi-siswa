@@ -15,12 +15,14 @@ class AspirationSeeder extends Seeder
      */
     public function run(): void
     {
-
         $students = User::where('role', 'user')->get();
-        $admins = User::where('role', 'admin')->get();
+
+        $admins = User::where('role', 'admin')
+            ->where('email', '!=', 'dev@ridhsuki.my.id')
+            ->get();
 
         if ($students->count() == 0) {
-            $this->command->info('Harap jalankan UserSeeder terlebih dahulu atau buat user manual.');
+            $this->command->info('Harap jalankan DatabaseSeeder (User data) terlebih dahulu.');
             return;
         }
 
@@ -80,7 +82,8 @@ class AspirationSeeder extends Seeder
 
             for ($i = 0; $i < $replyCount; $i++) {
 
-                $isReplyByAdmin = ($admins->count() > 0 && rand(1, 10) > 8);
+                $hasAdmin = $admins->count() > 0;
+                $isReplyByAdmin = ($hasAdmin && rand(1, 10) > 8);
 
                 if ($isReplyByAdmin) {
                     $replier = $admins->random();

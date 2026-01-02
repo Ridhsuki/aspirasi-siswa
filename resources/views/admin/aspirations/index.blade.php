@@ -181,8 +181,9 @@
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                                                 <a href="{{ route('admin.aspirations.show', $aspiration->id) }}"
-                                                    class="text-blue-600 hover:text-blue-900 px-3 py-1 rounded hover:bg-blue-50 transition">
-                                                    Detail
+                                                    class="text-blue-600 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 p-2 rounded-lg transition"
+                                                    title="Detail">
+                                                    <i class="fa-regular fa-eye"></i>
                                                 </a>
                                             </td>
                                         </tr>

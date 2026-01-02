@@ -9,23 +9,35 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <h3 class="text-lg font-bold mb-4 border-b pb-2">📂 Riwayat Aspirasi Anda</h3>
+                    <h3 class="text-lg font-bold mb-4 border-b pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-folder-open text-blue-600"></i> Riwayat Aspirasi Anda
+                    </h3>
 
                     @if ($aspirations->isEmpty())
-                        <p class="text-gray-500 italic">Anda belum pernah mengirimkan aspirasi.</p>
-                        <a href="{{ route('aspirations.index') }}"
-                            class="text-blue-600 hover:underline mt-2 inline-block">Mulai buat aspirasi &rarr;</a>
+                        <div class="text-center py-6">
+                            <p class="text-gray-500 italic mb-2">Anda belum pernah mengirimkan aspirasi.</p>
+                            <a href="{{ route('aspirations.index') }}"
+                                class="inline-flex items-center gap-1 text-blue-600 hover:underline font-medium">
+                                <i class="fa-solid fa-pen-nib"></i> Mulai buat aspirasi
+                            </a>
+                        </div>
                     @else
                         <div class="overflow-x-auto">
                             <table class="min-w-full bg-white border border-gray-200">
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th class="py-2 px-4 border-b text-left text-sm font-semibold text-gray-600">
-                                            Tanggal</th>
-                                        <th class="py-2 px-4 border-b text-left text-sm font-semibold text-gray-600">Isi
+                                            Tanggal
                                         </th>
                                         <th class="py-2 px-4 border-b text-left text-sm font-semibold text-gray-600">
-                                            Aksi</th>
+                                            Isi Aspirasi
+                                        </th>
+                                        <th class="py-2 px-4 border-b text-center text-sm font-semibold text-gray-600">
+                                            Balasan
+                                        </th>
+                                        <th class="py-2 px-4 border-b text-center text-sm font-semibold text-gray-600">
+                                            Aksi
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="aspContainer">
@@ -36,8 +48,9 @@
 
                         @if ($aspirations->hasMorePages())
                             <div class="mt-4 text-center">
-                                <button id="loadMoreAsp" class="text-blue-600 hover:underline text-sm">
-                                    Muat lebih banyak aspirasi &darr;
+                                <button id="loadMoreAsp"
+                                    class="text-blue-600 hover:underline text-sm flex items-center justify-center gap-1 mx-auto">
+                                    Muat lebih banyak aspirasi <i class="fa-solid fa-chevron-down"></i>
                                 </button>
                             </div>
                         @endif
@@ -47,7 +60,9 @@
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <h3 class="text-lg font-bold mb-4 border-b pb-2">💬 Riwayat Komentar Anda</h3>
+                    <h3 class="text-lg font-bold mb-4 border-b pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-comments text-blue-600"></i> Riwayat Komentar Anda
+                    </h3>
 
                     @if ($replies->isEmpty())
                         <p class="text-gray-500 italic">Anda belum pernah membalas aspirasi apapun.</p>

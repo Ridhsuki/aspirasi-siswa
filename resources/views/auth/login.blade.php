@@ -176,8 +176,6 @@
             <input type="text" id="email" name="login_id" class="email" maxlength="256"
                 value="{{ old('login_id') }}" required autofocus />
 
-            <p class="helper helper1">Masukkan Email atau NISN</p>
-
             <span class="indicator"></span>
         </div>
 

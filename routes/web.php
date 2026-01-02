@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AspirationAdminController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\UserController;
@@ -35,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/replies/{id}', [AspirationController::class, 'destroyReply'])->name('replies.destroy');
 
     Route::get('/my-activity', [AspirationController::class, 'activity'])->name('aspirations.activity');
+    Route::get('/about', fn() => view('about'))->name('about');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -56,6 +56,9 @@
                         <x-dropdown-link :href="route('aspirations.activity')">
                             {{ __('Aktivitas Saya') }}
                         </x-dropdown-link>
+                        <x-dropdown-link :href="route('about')">
+                            {{ __('Tentang') }}
+                        </x-dropdown-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -119,6 +122,9 @@
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('aspirations.activity')">
                     {{ __('Aktivitas Saya') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('about')">
+                    {{ __('Tentang') }}
                 </x-responsive-nav-link>
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

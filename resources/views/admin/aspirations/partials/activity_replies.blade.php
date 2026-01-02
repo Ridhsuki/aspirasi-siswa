@@ -19,8 +19,8 @@
                 </p>
 
                 <div class="mt-2 text-right">
-                    <form action="{{ route('replies.destroy', $reply->id) }}" method="POST" class="inline"
-                        onsubmit="return confirm('Hapus komentar ini?');">
+                    <form action="{{ route('replies.destroy', $reply->id) }}" method="POST"
+                        class="inline delete-confirm" data-confirm-text="Hapus Komentar Ini?">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="text-xs text-red-500 hover:text-red-700">Hapus Komentar</button>

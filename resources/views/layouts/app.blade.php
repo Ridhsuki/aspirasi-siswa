@@ -5,7 +5,7 @@
         @include('layouts.partials.seo', [
             'description' => 'Halaman Dashboard untuk memanajemen aspirasi siswa.'
         ])
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>@yield('title', 'Dashboard') | {{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -42,5 +42,6 @@
             </main>
         </div>
         @stack('scripts')
+        @include('layouts.partials.swal')
     </body>
 </html>

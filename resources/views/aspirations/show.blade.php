@@ -40,8 +40,8 @@
                 </div>
 
                 @if ($isAspirationOwner)
-                    <form action="{{ route('aspirations.destroy', $aspiration->id) }}" method="POST"
-                        onsubmit="return confirm('Hapus aspirasi ini?')">
+                    <form action="{{ route('aspirations.destroy', $aspiration->id) }}" method="POST" class="delete-confirm"
+                        data-confirm-text="Aspirasi ini beserta seluruh balasannya akan dihapus permanen!">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="delete-btn">🗑️ Hapus</button>
@@ -105,7 +105,7 @@
 
                             @if ($isReplyOwner)
                                 <form action="{{ route('replies.destroy', $reply->id) }}" method="POST"
-                                    onsubmit="return confirm('Hapus komentar ini?')">
+                                    class="delete-confirm">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"

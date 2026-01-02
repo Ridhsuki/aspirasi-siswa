@@ -2,27 +2,8 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @include('layouts.partials.seo')
     <title>@yield('title', 'Aspirasi Siswa') | {{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Meta Tags -->
-    <meta name="description" content="">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="">
-    <meta name="twitter:description" content="">
-    <meta property="og:url" content="{{ config('app.url', 'ridhsuki.my.id') }}">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="">
-    <meta property="og:title" content="">
-    <meta property="og:description" content="">
-    
-    <!-- Favicon Placeholders -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/favicon/favicon-16x16.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/favicon/favicon-32x32.png') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/favicon/apple-touch-icon.png') }}">
-    <link rel="manifest" href="{{ asset('assets/favicon/site.webmanifest') }}">
-
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
@@ -33,8 +14,10 @@
 <body>
     @yield('content')
     @stack('scripts')
-    <script src="{{ minify('assets/js/asp.js') }}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="{{ minify('assets/js/asp.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             @if (session('success'))

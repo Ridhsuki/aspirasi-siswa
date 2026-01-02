@@ -28,7 +28,7 @@
                             {{ $aspiration->user->name }}
                         @endif
 
-                        @if (!$aspiration->is_anonymous && $aspiration->role === 'admin')
+                        @if (!$aspiration->is_anonymous && $aspiration->user->role === 'admin')
                             <span class="badge-admin">Admin</span>
                         @endif
                     </h3>
@@ -37,7 +37,8 @@
 
                 @if ($isAspirationOwner)
                     <form action="{{ route('aspirations.destroy', $aspiration->id) }}" method="POST"
-                        onsubmit="return confirm('Hapus aspirasi ini?')">
+                        class="delete-confirm"
+                        data-confirm-text="Aspirasi ini beserta seluruh balasannya akan dihapus permanen!">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="delete-btn" title="Hapus">🗑️ Hapus</button>
@@ -107,7 +108,7 @@
 
                         @if ($isReplyOwner)
                             <form action="{{ route('replies.destroy', $reply->id) }}" method="POST"
-                                onsubmit="return confirm('Hapus komentar ini?')">
+                                class="delete-confirm">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"

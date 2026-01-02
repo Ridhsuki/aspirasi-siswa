@@ -1,4 +1,5 @@
 <x-app-layout>
+    @section('title', 'Manajemen Siswa')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Manajemen Siswa') }}
@@ -79,18 +80,6 @@
                             <i class="fa-solid fa-user-plus mr-2"></i> Tambah Siswa
                         </a>
                     </div>
-                    @if (session('success'))
-                        <div class="mb-4 bg-green-50 border-l-4 border-green-500 text-green-700 p-4 rounded-r shadow-sm"
-                            role="alert">
-                            <div class="flex">
-                                <div class="py-1"><i class="fa-solid fa-circle-check mr-2"></i></div>
-                                <div>
-                                    <p class="font-bold">Berhasil</p>
-                                    <p class="text-sm">{{ session('success') }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
                     @if ($users->isEmpty())
                         <div class="text-center py-12">
                             <div class="mb-3 text-gray-300">
@@ -171,8 +160,7 @@
                                                     </a>
 
                                                     <form action="{{ route('admin.users.destroy', $user->id) }}"
-                                                        method="POST"
-                                                        onsubmit="return confirm('Yakin ingin menghapus siswa ini?');">
+                                                        method="POST" class="delete-confirm">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"

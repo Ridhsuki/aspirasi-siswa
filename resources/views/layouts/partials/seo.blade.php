@@ -1,4 +1,4 @@
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="OSIS SMA Negeri 3 Kepulauan Aru">

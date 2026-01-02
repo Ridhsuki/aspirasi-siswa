@@ -1,4 +1,5 @@
 <x-app-layout>
+    @section('title', 'Detail Aspirasi')
     <x-slot name="header">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight flex items-center gap-2">
@@ -109,8 +110,8 @@
                     </form>
 
                     <form action="{{ route('admin.aspirations.destroy', $aspiration->id) }}" method="POST"
-                        class="w-full sm:w-auto"
-                        onsubmit="return confirm('Yakin ingin menghapus seluruh aspirasi ini beserta balasannya?');">
+                        class="w-full sm:w-auto delete-confirm"
+                        data-confirm-text="Aspirasi ini beserta seluruh balasannya akan dihapus permanen!">
                         @csrf
                         @method('DELETE')
                         <button type="submit"

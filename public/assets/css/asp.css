@@ -483,6 +483,11 @@ body {
     transition: all 0.3s;
 }
 
+.btn-back:hover {
+    transform: translateX(-5px);
+    background: white;
+}
+
 @media (max-width: 640px) {
     .header h1 {
         font-size: 2em;

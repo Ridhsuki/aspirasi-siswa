@@ -41,8 +41,9 @@
                         <div class="mt-6 flex gap-2">
                             <a href="{{ route('admin.users.edit', $user->id) }}"
                                 class="flex-1 bg-yellow-400 hover:bg-yellow-500 text-white py-2 rounded text-sm font-bold">Edit</a>
-                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="flex-1"
-                                onsubmit="return confirm('Hapus siswa ini?');">
+                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
+                                class="flex-1 delete-confirm"
+                                data-confirm-text="Data Siswa ini beserta seluruh aspirasinya akan dihapus permanen!">
                                 @csrf @method('DELETE')
                                 <button
                                     class="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded text-sm font-bold">Hapus</button>

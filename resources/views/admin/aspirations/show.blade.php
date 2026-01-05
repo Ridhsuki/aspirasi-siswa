@@ -171,6 +171,17 @@
                                                 {{ $reply->created_at->diffForHumans() }}
                                             </span>
                                         </div>
+                                        <form action="{{ route('admin.replies.destroy', $reply->id) }}" method="POST"
+                                            class="delete-confirm ml-auto"
+                                            data-confirm-text="Apakah Anda yakin ingin menghapus balasan ini?">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="text-gray-400 hover:text-red-500 transition-colors p-1"
+                                                title="Hapus Komentar">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                        </form>
                                     </div>
 
                                     <div

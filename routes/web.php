@@ -19,6 +19,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
         Route::patch('/aspirations/{id}/status', 'updateStatus')->name('aspirations.update-status');
         Route::get('/aspirations/{id}', 'show')->name('aspirations.show');
         Route::delete('/aspirations/{id}', 'destroy')->name('aspirations.destroy');
+        Route::delete('/replies/{id}', 'destroyReply')->name('replies.destroy');
     });
 });
 

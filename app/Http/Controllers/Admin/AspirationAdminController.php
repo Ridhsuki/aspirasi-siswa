@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Aspiration;
+use App\Models\Reply;
 use Illuminate\Http\Request;
 
 class AspirationAdminController extends Controller
@@ -75,5 +76,14 @@ class AspirationAdminController extends Controller
         $aspiration->delete();
 
         return redirect()->route('admin.aspirations.index')->with('success', 'Aspirasi berhasil dihapus.');
+    }
+
+    public function destroyReply($id)
+    {
+        $reply = Reply::findOrFail($id);
+
+        $reply->delete();
+
+        return back()->with('success', 'Balasan berhasil dihapus.');
     }
 }
